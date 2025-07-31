@@ -1,0 +1,29 @@
+﻿@page "/receitas"
+@inject ReceitaService ReceitaService
+
+<h3>Receitas</h3>
+
+@if (receitas == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    @foreach (var receita in receitas)
+    {
+        <div>
+            <h4>@receita.Nome</h4>
+            <p>Tempo: @receita.TempoPreparacao minutos</p>
+            <p>Dificuldade: Média</p>
+        </div>
+    }
+}
+
+@code {
+    private List<Receita> receitas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        receitas = await ReceitaService.GetAllReceitasAsync();
+    }
+}

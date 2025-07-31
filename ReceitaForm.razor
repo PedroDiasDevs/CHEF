@@ -1,0 +1,24 @@
+﻿@page "/nova-receita"
+@inject ReceitaService ReceitaService
+
+
+<h3>Registrar Uma Nova Receita</h3>
+<EditForm Model="receita" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="receita.Nome" placeholder="Nome da receita" />
+    <InputNumber @bind-Value="receita.TempoPreparacao" placeholder="Tempo (em minutos)" />
+    <!-- Adicionar campos para ingredientes e utensílios aqui -->
+    <button type="submit">Registrar Receita</button>
+</EditForm>
+
+@code {
+    private Receita receita = new Receita();
+
+    private async Task HandleSubmit()
+    {
+        await ReceitaService.AddReceitaAsync(receita);
+        // Redirecionar ou notificar que a receita foi adicionada
+    }
+}
